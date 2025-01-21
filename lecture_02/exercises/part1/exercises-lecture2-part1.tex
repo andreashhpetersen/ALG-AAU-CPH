@@ -1,0 +1,75 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=3cm,headsep=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{%
+    booktabs,
+    fancyhdr,
+    pgfgantt,
+    titlesec,
+    clrscode3e,
+    exercise,
+}
+
+\pagestyle{fancy}
+
+\rhead{Algorithms and Data Structures, S25}
+\lhead{Exercises part 2, Lecture 02}
+\rfoot{Aalborg University, Copenhagen}
+\lfoot{Andreas Holck Høeg-Petersen}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\begin{Exercise}
+
+    \Question
+    Run \proc{Insertion-Sort} on the following inputs and write down a trace of
+    the execution in the style of CLRS Figure 2.2 (page 20 in 4th edition).
+
+    \begin{itemize}
+        \item (7, 2, 1, 4)
+        \item (8, 5, 3, 1)
+        \item (`a', `m', `f', `b')
+            \begin{itemize}
+                \item NB: How do you compare characters?
+            \end{itemize}
+    \end{itemize}
+
+\end{Exercise}
+
+\begin{Exercise}
+
+    \noindent
+    Consider the pseudo-code for \proc{sum($A,n$)}:
+    
+    \begin{codebox}
+        \Procname{$\proc{sum}(A, n)$}
+        \li $i \gets 0$
+        \li $\id{sum} \gets 0$
+        \li \While $i \leq n$ \Then
+            \li $\id{sum} = \id{sum} + A[i]$
+        \End
+        \li \Return \id{sum}
+    \end{codebox}
+
+    \Question
+    Prove with a loop invariant that the algorithm correctly sums the elements
+    in the array passed to it. Note that:
+
+    \begin{itemize}
+        \item $A$ is an array of real numbers (index starting from 0)
+        \item $n$ is the size of $A$ (so $n$ is an integer such that $n \geq 0$)
+    \end{itemize}
+
+\end{Exercise}
+    
+\begin{Exercise}
+    \Question
+    Rewrite the \proc{Insertion-Sort} procedure to sort into monotonically
+    decreasing order instead of monotonically increasing order (this is exercise
+    2.1-3 from CLRS).
+\end{Exercise}
+
+
+\end{document}

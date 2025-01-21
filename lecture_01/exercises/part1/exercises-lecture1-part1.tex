@@ -1,0 +1,114 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=3cm,headsep=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+
+\usepackage{%
+    booktabs,
+    fancyhdr,
+    pgfgantt,
+    titlesec,
+    clrscode3e,
+    exercise,
+}
+
+\pagestyle{fancy}
+
+\rhead{Algorithms and Data Structures, F25}
+\lhead{Exercises part 1, Lecture 01}
+\rfoot{Aalborg University, Copenhagen}
+\lfoot{Andreas Holck Høeg-Petersen}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\begin{Exercise}
+    \noindent
+    Consider the pseudo-code for \proc{Find-Element}:
+
+    \begin{codebox}
+        \Procname{$\proc{Find-Element}(A, a)$}
+        \li $j \gets 0$
+        \li \For $i \gets 1$ \To \attrib{A}{length} \Do
+            \li \If $A[i] \gets a$ \Then
+                \li $j \gets i$
+            \End
+        \End
+        \li \Return $j$
+    \end{codebox}
+
+    \Question
+    Step \textit{meticulously} through the algorithm for each of the following
+    inputs. Note down each line that is executed, what the value of $i$ and $j$
+    is and what is returned in the end.
+
+    \begin{itemize}
+        \item (`m', `f', `a', `b', `k'), `b'
+        \item (7, 2, 1, 4), 7
+        \item (), `d'
+        \item (0, 1, 0, 1, 0, 1, 0), 1
+        \item (3, 4, 2, 4), 4
+        \item (`p', `x', `f', `l'), `m'
+    \end{itemize}
+
+    \medskip
+    \ExeText
+    Consider the pseudo-code for \proc{Find-Element-v2}, an alternative version
+    the algorithm:
+    
+    \begin{codebox}
+        \Procname{$\proc{Find-Element-v2}(A, a)$}
+        \li $j \gets \attrib{A}{length}$
+        \li \While $i > 0$ \Do
+            \li \If $A[i] = a$ \Then
+                \li $j \gets i$
+            \End
+            \li $i = i - 1$
+        \End
+        \li \Return $j$
+    \end{codebox}
+
+    \Question
+    Does \proc{Find-Element} and \proc{Find-Element-v2} solve the same problem?
+    Step through the algorithm to convince yourself!
+
+    \medskip
+    \ExeText
+    Consider the pseudo-code for \proc{Find-Element-v3}, an alternative version
+    the algorithm:
+    
+    \begin{codebox}
+        \Procname{$\proc{Find-Element-v3}(A, a)$}
+        \li $i \gets \attrib{A}{length}$
+        \li \While $i > 0$ and $A[i] \neq a$ \Then
+            \li $i = i - 1$
+        \End
+        \li \Return $i$
+    \end{codebox}
+
+    \Question
+    Does \proc{Find-Element-v3} solve the same problem as either or both of the
+    two previous algorithms? Once again, journey through the tedious process of
+    stepping through the algorithm to convince yourself!
+
+\end{Exercise}
+    
+\begin{Exercise}
+
+    \Question
+    Write pseudo-code for an algorithm \proc{Count-Instances}, which takes as
+    input a sequence $A$ of characters and a character $a$ and outputs the
+    number of occurrences of $a$ in $A$. So, for the input pair ((`a', `b', `b',
+    `a'), `a') the output should be 2.
+    
+    \medskip
+    \Question
+    Write pseudo-code for an algorithm \proc{Check-Equality}, which takes as
+    input two sequences $A$ and $B$ of characters and outputs \const{True} if
+    $A$ and $B$ are identical and \const{False} otherwise. NB: Note that it is
+    not required that the two sequences are of the same length!
+    
+\end{Exercise}
+
+
+\end{document}

@@ -1,0 +1,153 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=3cm,headsep=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+
+\usepackage{%
+    booktabs,
+    fancyhdr,
+    pgfgantt,
+    titlesec,
+    clrscode3e,
+    exercise,
+}
+
+\pagestyle{fancy}
+
+\rhead{Algorithms and Data Structures, S25}
+\lhead{Exercises part 2, Lecture 01}
+\rfoot{Aalborg University, Copenhagen}
+\lfoot{Andreas Holck Høeg-Petersen}
+
+\begin{document}
+\thispagestyle{fancy}
+
+
+\begin{Exercise}
+    \noindent
+    As a warm-up for analyzing runtime, consider the pseudo-code for
+    \proc{Sum-Even-Numbers} which takes a sequence of integers and returns the
+    sum of all even numbers:
+
+    \begin{codebox}
+        \Procname{$\proc{Sum-Even-Numbers}(A)$}
+        \li $\key{sum} \gets 0$
+        \li \For $i \gets 1$ \To \attrib{A}{length} \Do
+            \li \If $A[i] \mod{2} \isequal 0$ \Then
+                \li $\key{sum} \gets \key{sum} + A[i]$
+            \End
+        \End
+        \li \Return $\key{sum}$
+    \end{codebox}
+
+    \noindent
+    Assume that each line $i$ takes $c_i$ time to execute.
+
+    \Question
+    What is the \textit{exact} running time $T(n)$ of
+    \proc{Sum-Even-Numbers}?
+
+    \Question
+    What is the \textit{worst case} running time and what input would cause
+    this?
+
+\end{Exercise}
+
+\medskip
+
+\begin{Exercise}
+    \noindent
+    Consider the problem of finding the two smallest numbers in a non-empty
+    sequence of numbers, not necessarily sorted.
+
+    \Question
+    Formalise the above as a computational problem (be careful to precisely
+    define the input, the output and their relationship).
+
+    \Question
+    Write the pseudo-code of an algorithm that solves the above computational
+    problem, assuming the sequence is given as an array $A[1\ldots n]$.
+
+    \Question
+    Assume that line $i$ of your pseudo-code takes constant time $c_i$ to
+    execute. What is the worst case running time of your algorithm?
+\end{Exercise}
+
+\medskip
+
+\begin{Exercise}
+    \ExeText
+    Consider the problem of reversing an array of numbers, ie.\ so the last
+    element becomes the first, the second last becomes the second, etc.\ For
+    example, the reverse of $[1,2,3,4,5]$ is $[5,4,3,2,1]$.
+
+    \Question
+    Write the pseudo-code for an algorithm that solves this problem.
+    \textit{Hint:} In pseudo-code, you can just create a new array of size $n$
+    by writing `$B$ = new array of size $n$'
+
+    \Question
+    What is the worst case running time of your algorithm?
+
+    \ExeText
+    We measure space almost like we measure time, except instead of assuming a
+    constant cost of each line, we assume a constant cost $c$ of each new
+    variable (since the value associated with the variable is stored in memory).
+    An array of size $n$ then takes $c \cdot n$ space, since we are essentially
+    creating $n$ variables, one for each slot in the array.
+
+    \Question
+    Assuming you created another array for the reversed sequence in the above
+    question, try now to propose an algorithm that only uses a contant amount of
+    extra space. What is the worst case running time of your algorithm?
+\end{Exercise}
+
+\begin{Exercise}
+    \noindent
+    Consider the following star-printing algorithms:
+
+    \begin{minipage}[t]{.3\textwidth}
+        \begin{codebox}
+            \Procname{$\proc{Print-Logarithmic}(n)$}
+            \li $i = n$
+            \li \While $i \geq 1$ \Do
+                \li print *
+                \li $i = i / 2$
+            \End
+        \end{codebox}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{.3\textwidth}
+        \begin{codebox}
+            \Procname{$\proc{Print-Linear}(n)$}
+            \li \For $i = 1$ \To $n$ \Do
+                \li print *
+            \End
+        \end{codebox}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{.3\textwidth}
+        \begin{codebox}
+            \Procname{$\proc{Print-Squared}(n)$}
+            \li \For $i=1$ \To $n$ \Do
+                \li \For $j=1$ \To $n$ \Do
+                    \li print *
+                \End
+            \End
+        \end{codebox}
+    \end{minipage}
+
+    \Question
+    How many stars are printed with by each algorithm, when you call
+    \proc{Print-Logarithmic}($n$) with $n = 32, 16, 8, 4, 2$ and
+    \proc{Print-Linear}($n$) and \proc{Print-Squared}($n$) with $n = 1, 2, 3, 4,
+    5$?
+
+    \Question
+    Is there a relation between the number of stars printed and the running time
+    of the algorithms?
+\end{Exercise}
+
+
+
+\end{document}

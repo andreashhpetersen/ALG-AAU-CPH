@@ -1,0 +1,99 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=3cm,headsep=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+
+\usepackage{%
+    booktabs,
+    fancyhdr,
+    pgfgantt,
+    titlesec,
+    clrscode3e,
+    exercise,
+}
+
+\pagestyle{fancy}
+
+\rhead{Algorithms and Data Structures, S25}
+\lhead{Exercises part 2, Lecture 02}
+\rfoot{Aalborg University, Copenhagen}
+\lfoot{Andreas Holck Høeg-Petersen}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\begin{Exercise}
+
+    \noindent
+    Give the asymptotic tight bounds ($\Theta)$ on the following functions of
+    $n$. Here, $k \geq 1$ and $c > 1$ are constants. Hint: you might want to
+    take a look at some of the classic functions and their properties in Section
+    3.3 CLRS.
+
+    \Question
+    $0.001n^2 + 70000n$
+    
+    \Question
+    $2^n + n^{1000}$
+
+    \Question
+    $n^k + c^n$
+
+    \Question
+    $20 \log n + n^k$
+
+    \Question
+    $2^n + 2^{n/2}$
+
+    \Question
+    $n^{\log c} + c^{\log n}$
+
+    \Question
+    $13n^4 + 7n^3 - 9n^2 + 127n + \frac{n!}{7}$
+\end{Exercise}
+
+\begin{Exercise}
+    
+    \noindent
+    Consider the following function $f(n) = 3n \log n + 15n + 1800$ and prove
+    that it is in $O(n \log n)$ (hint: find constants $c$ and $n_0$ such that
+    $f(n) \leq c(n \log n)$ for all $n \geq n_0$.
+
+\end{Exercise}
+
+\begin{Exercise}
+
+    \noindent
+    Consider the pseudo-code for the following mysterious  sorting function
+    \proc{Sort($A$)}:
+    
+    \begin{codebox}
+        \Procname{$\proc{Sort}(A)$}
+        \li $n \gets \attrib{A}{length}$
+        \li \For $i \gets 1$ \To $n$ \Do
+            \li \For $j \gets i+1$ \To $n$ \Do
+                \li \If $A[i] > A[j]$ \Then
+                    \li $\id{key} \gets A[i]$
+                    \li $A[i] \gets A[j]$
+                    \li $A[j] \gets \id{key}$
+                \End
+            \End
+        \End
+        \li \Return \id{sum}
+    \end{codebox}
+
+    \Question
+    Explain informally how the algorithm works.
+
+    \Question
+    Prove that \proc{Sort} correctly solves the solving problem (hint: determine
+    suitable invariants for both loops)
+
+    \Question
+    Determine the asymptotic worst-case running time in terms of upper bound $O$
+    and lower bound $\Omega$.
+
+\end{Exercise}
+
+\end{document}
+

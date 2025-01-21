@@ -14,3 +14,9 @@
 *.cb
 *.cb2
 .*.lb
+
+## More latex crap
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm

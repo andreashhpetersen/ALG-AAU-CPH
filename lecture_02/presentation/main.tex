@@ -1,6 +1,6 @@
 % $Header$
 
-\documentclass{beamer}
+\documentclass[aspectratio=1610]{beamer}
 
 \mode<presentation>
 {%
@@ -11,14 +11,14 @@
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{graphicx}
-\usepackage{varwidth}
-\usepackage{animate}
-\usepackage{tcolorbox}
-
-\usepackage{clrscode3e}
-% \usepackage{algorithm}
-% \usepackage[noend]{algpseudocode}
+\usepackage{%
+    graphicx,
+    varwidth,
+    animate,
+    tcolorbox,
+    lmodern,
+    clrscode3e,
+}
 
 \graphicspath{{../../imgs/}}
 
@@ -109,7 +109,7 @@
 \begin{frame}{Sorteringsproblemet}{En klassiker}
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.25\textwidth]{sorting-algorithms-wiki}
+        \includegraphics[width=0.21\textwidth]{sorting-algorithms-wiki}
         \caption{Screenshot fra Wikipedia}
         \label{fig:sorting-algorithms-wiki}
     \end{figure}
@@ -538,7 +538,7 @@
     Målet med asymptotisk analyse er forenkle udtrykket for køretiden ved at
     abstrahere irrelevante og svært forudsigelige faktorer væk og istedet fange
     `essensen' af $T(n)$ --- nemlig den dominerende term, når $n$ går mod
-    \infty.
+    $\infty$.
 
     \pause
     \medskip
@@ -734,7 +734,7 @@
     \pause
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.5\textwidth]{time-complexity}
+        \includegraphics[width=0.38\textwidth]{time-complexity}
         \caption{Source: https://www.geeksforgeeks.org/what-is-logarithmic-time-complexity/}
         \label{fig:time-complexity}
     \end{figure}

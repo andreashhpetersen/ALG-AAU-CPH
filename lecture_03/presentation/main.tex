@@ -1,6 +1,6 @@
 % $Header$
 
-\documentclass{beamer}
+\documentclass[aspectratio=1610]{beamer}
 
 \mode<presentation>
 {%
@@ -18,9 +18,32 @@
     animate,
     tcolorbox,
     clrscode3e,
-    tikz
+    tikz,
 }
-\usetikzlibrary{trees,positioning}
+\usetikzlibrary{shapes.multipart}
+
+\tikzset{%
+    block/.style={%
+        font=\sffamily,
+        draw=black,
+        thin,
+        fill=pink!50,
+        rectangle split,
+        rectangle split horizontal,
+        rectangle split parts=#1,
+        outer sep=0pt
+    },
+    gblock/.style={%
+        block,
+        rectangle split parts=#1,
+        fill=green!30
+    },
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+}
 
 \graphicspath{{../../imgs/}}
 
@@ -110,7 +133,7 @@
 \begin{frame}{Divide and Conquer}{Rekursion???}
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.8\textwidth]{recursion}
+        \includegraphics[width=0.7\textwidth]{recursion}
         \caption{Google søgning på `recursion'}
         \label{fig:recursion}
     \end{figure}
@@ -217,7 +240,7 @@
 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.45\textwidth]{merge-clrs}
+        \includegraphics[width=0.4\textwidth]{merge-clrs}
         \caption{Ew!!}
         \label{fig:merge-clrs}
     \end{figure}
@@ -269,18 +292,19 @@
             
             \vspace{-\abovedisplayskip}
             \begin{codebox}
-                \Procname{$\proc{Merge}(A,\id{low},\id{mid},\id{high})$}
+                \Procname{$\proc{Merge}(A,p,q,r)$}
+                \li $\id{low} \gets p, \id{mid} \gets q+1, \id{high} \gets r+1$
                 \li let $B[0:\id{high}-\id{low}]$ be a new array with 0-index
                 \li \For $i \gets 0$ \To $\attrib{B}{length}$ \Do
                     \li $B[i] = A[i+\id{low}]$
                 \End
                 \zi
-                \li $i \gets 0$, $j \gets (\id{high}-\id{mid})$
+                \li $i \gets 0$, $j \gets (\id{mid}-\id{low})$
                 \li \For $k \gets \id{low}$ \To $\id{high}$ \Do
-                    \li \If $(i + \id{low}) > \id{mid}$ \Then
+                    \li \If $(i + \id{low}) \geq \id{mid}$ \Then
                         \li $A[k] \gets B[j]$
                         \li $j \gets j + 1$
-                    \li \ElseIf $(j + \id{mid}) > \id{high}$ \Then
+                    \li \ElseIf $(j + \id{low}) \geq \id{high}$ \Then
                         \li $A[k] \gets B[i]$
                         \li $i \gets i + 1$
                     \li \ElseIf $B[j] < B[i]$ \Then
@@ -307,46 +331,51 @@
                 
                 \vspace{-\abovedisplayskip}
                 \begin{codebox}
-                    \Procname{$\proc{Merge}(A,\id{low},\id{mid},\id{high})$}
-                    \li let $B[0:\id{high}-\id{low}]$ be
+                    \Procname{$\proc{Merge}(A,p,q,r)$}
+                    \li \alertline<2>$\id{low} \gets p,
+                                      \id{mid} \gets q+1,
+                                      \id{high} \gets r+1$
+                    \li \alertline<3>let $B[0:\id{high}-\id{low}]$ be
                     \Startalign{let $B$}
-                    \>  a new array with 0-index
+                    \>  \alertline<3>a new array with 0-index
                     \Stopalign
 
-                    \li \alertline<2>\For $i \gets 0$ \To $\attrib{B}{length}$ 
+                    \li \alertline<3>\For $i \gets 0$ \To $\attrib{B}{length}$ 
                     \li     \Do
-                    \alertline<2>$B[i] = A[i+\id{low}]$
+                    \alertline<3>$B[i] = A[i+\id{low}]$
                             \End
                     \zi
 
-                    \li \alertline<3>$i \gets 0$, $j \gets (\id{high}-\id{mid})$
-                    \li \alertline<4>\For $k \gets \id{low}$ \To $\id{high}$ 
+                    \li \alertline<4>$i \gets 0$, $j \gets (\id{mid}-\id{low})$
+                    \li \alertline<5>\For $k \gets \id{low}$ \To $\id{high}$ 
                     \li     \Do
-                                \alertline<5>\If $(i + \id{low}) > \id{mid}$
+                                \alertline<6>\If $(i + \id{low}) \geq \id{mid}$
                     \li             \Then
-                                        \alertline<5>$A[k] \gets B[j]$
-                    \li                 \alertline<5>$j \gets j + 1$
-                    \li         \ElseIf \alertline<6>$(j + \id{mid}) > \id{high}$
+                                        \alertline<6>$A[k] \gets B[j]$
+                    \li                 \alertline<6>$j \gets j + 1$
+                    \li         \ElseIf \alertline<7>$(j + \id{low}) \geq \id{high}$
                     \li             \Then
-                                        \alertline<6>$A[k] \gets B[i]$
-                    \li                 \alertline<6>$i \gets i + 1$
-                    \li         \ElseIf \alertline<7>$B[j] < B[i]$
+                                        \alertline<7>$A[k] \gets B[i]$
+                    \li                 \alertline<7>$i \gets i + 1$
+                    \li         \ElseIf \alertline<8>$B[j] < B[i]$
                     \li             \Then
-                                        \alertline<7>$A[k] \gets B[j]$
-                    \li                 \alertline<7>$j \gets j + 1$
+                                        \alertline<8>$A[k] \gets B[j]$
+                    \li                 \alertline<8>$j \gets j + 1$
                     \li         \ElseNoIf
-                    \li                 \alertline<8>$A[k] \gets B[i]$
-                    \li                 \alertline<8>$i \gets i + 1$
+                    \li                 \alertline<9>$A[k] \gets B[i]$
+                    \li                 \alertline<9>$i \gets i + 1$
                                 \End
                             \End
                 \end{codebox}
             \end{tcolorbox}
         \end{minipage}
 
-        \column{.5\textwidth}
+        \column{.53\textwidth}
+        \pause
+
         \begin{itemize}[<+->]
             \scriptsize
-            \item Vi lader $low = p, mid = q$ og $high = r$
+            \item Vi lader $low = p, mid = q+1$ og $high = r+1$
             \item Kopier $A[p:r]$ til $B[0:r-p]$
             \item $i$ og $j$ peger på første og anden del af $B$
             \item $k$ løber igennem alle indicies i $A[p:r]$
@@ -359,8 +388,8 @@
             \item Ellers, sæt $A[k]$ til $B[i]$ og inkrementer $i$
             \item Vi har nu lagt elementerne fra $B$ tilbage i $A$ i sorteret
                 rækkefølge!
-            \item Forskellen fra CLRS er, at vi samler $L[0:n_L-1]$ og
-                $R[0:n_R-1]$ i et enkelt array $B$
+            \item Forskellen fra CLRS er, at vi samler $L$ og $R$ i et enkelt
+                array $B$
             \item \ldots og at vi klarer resten i et enkelt loop (fremfor 3,
                 eew!)
         \end{itemize}
@@ -368,41 +397,78 @@
 
 \end{frame}
 
+
 \begin{frame}{Merge sort}{Example}
-    % \begin{tikzpicture}[
-    %   level distance=1.5cm,
-    %   every node/.style={draw, rectangle, minimum width=1cm, minimum height=0.8cm, align=center},
-    %   edge from parent path={(\tikzparentnode.south) -- (\tikzchildnode.north)}
-    % ]
 
-    %     % Root node
-    %     \node {15, 7, 9, 11, 2, 8}
-    %       child {~node {15, 7, 9} 
-    %         child {~node {15} }
-    %         child {~node {7, 9} 
-    %           child {~node {7} }
-    %           child {~node {9} }
-    %         }
-    %       }
-    %       child {~node {11, 2, 8} 
-    %         child {~node {11} }
-    %         child {~node {2, 8} 
-    %           child {~node {2} }
-    %           child {~node {8} }
-    %         }
-    %       };
+    % courtesy of https://tex.stackexchange.com/questions/592155/how-to-draw-a-merge-sort-algorithm-figure
 
-    %     % Merging process
-    %     \node[below=1.5cm of {15, 7, 9}] (merge1) {Merging: 7, 9};
-    %     \node[below=1.5cm of {11, 2, 8}] (merge2) {Merging: 2, 8};
+    \def\lvld{1.1}                  % Choose level distance
+    \pgfmathsetmacro\shft{-6*\lvld} % Calculate the yshift for the green tree
 
-    %     % Final merge
-    %     \node[below=1.5cm of {merge1}] {Final Merge: 2, 7, 8, 9, 11, 15};
+    \centering
+    \begin{tikzpicture}[
+        level distance=\lvld cm,
+        level 1/.style={sibling distance=4cm},
+        level 2/.style={sibling distance=2cm},
+        level 3/.style={sibling distance=1cm},
+        edgedown/.style={edge from parent/.style={draw=red,thick,-latex}},
+        edgeup/.style={edge from parent/.style={draw=green!50!black,thick,latex-}}
+    ]
+  
+        % GREEN TREE (drawn first to let the middle line filled in pink)
 
-    % \end{tikzpicture}
+        \node[gblock=7,yshift=\shft cm,visible on= <16->] (A') {%
+            3 \nodepart{two} 9 \nodepart{three} 10 \nodepart{four} 27
+                \nodepart{five} 39 \nodepart{six} 43 \nodepart{seven} 82
+            }
+            [grow=up,edgeup]
+            child[visible on= <12->] {node[gblock=3,visible on= <15->] (B2') {9 \nodepart{two} 10 \nodepart{three} 82}
+                child[visible on= <14->] {node[gblock=1,visible on= <14->] (C4') {10}
+                    child[visible on= <14->] {node[gblock=1] (D7') {10}}
+                }
+                child[visible on= <12->] {node[gblock=2,visible on= <12->] (C2') {9 \nodepart{two} 82}
+                    child[visible on= <12->] {node[gblock=1] (D3') {82}}
+                    child[visible on= <12->] {node[gblock=1] (D4') {9}}
+                }
+            }
+            child[visible on= <5->] {node[gblock=4, visible on= <9->] (B1') {3 \nodepart{two} 27 \nodepart{three} 39 \nodepart{four} 43}
+                child[visible on=<8->] {node[gblock=2, visible on= <8->] (C3') {3 \nodepart{two} 43}
+                    child[visible on=<8->] {node[gblock=1] (D5') {3}}
+                    child[visible on=<8->] {node[gblock=1] (D6') {43}}
+                }
+                child[visible on=<5->] {node[gblock=2] (C1') {27 \nodepart{two} 39}
+                    child[visible on=<5->] {node[gblock=1] (D1') {27}}
+                    child[visible on=<5->] {node[gblock=1] (D2') {39}}
+                }
+            };
+            
+            
+        % PINK TREE
+        
+        \node[block=7, visible on=<1->] (A) {39 \nodepart{two} 27 \nodepart{three} 43 \nodepart{four} 3 \nodepart{five} 9 \nodepart{six}82 \nodepart{seven}10}
+            [grow=down,edgedown]
+            child[visible on=<2->] {node[block=4] (B1) {39 \nodepart{two} 27 \nodepart{three} 43 \nodepart{four} 3}
+                child[visible on=<3->] {node[block=2] (C1) {39 \nodepart{two} 27}
+                    child[visible on=<4->] {node[block=1] (D1) {39}}
+                    child[visible on=<4->] {node[block=1] (D2) {27}}
+                }
+                child[visible on=<3->] {node[block=2] (C2) {43 \nodepart{two} 3}
+                    child[visible on=<7->] {node[block=1] (D3) {43}}
+                    child[visible on=<7->] {node[block=1] (D4) {3}}
+                }
+            }
+            child[visible on=<2->] {node[block=3] (B2) {9 \nodepart{two} 82 \nodepart{three} 10}
+                child[visible on=<10->] {node[block=2] (C3) {9 \nodepart{two} 82}
+                    child[visible on=<11->] {node[block=1] (D5) {9}}
+                    child[visible on=<11->] {node[block=1] (D6) {82}}
+                }
+                child[visible on=<10->] {node[block=1] (C4) {10}
+                    child[visible on=<13->] {node[block=1] (D7) {10}}
+                }
+            };
+    \end{tikzpicture}
+
 \end{frame}
-
-
 
 
 

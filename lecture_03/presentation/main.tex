@@ -471,6 +471,216 @@
 \end{frame}
 
 
+\begin{frame}{Quicksort}{Endnu en klassiker}
+    Quicksort er en anden meget populær sorteringsalgoritme, der ligeledes
+    følger divide-and-conquer-metoden. I worst-case er dens køretid
+    $\Theta(n^2)$, men i praksis er den typisk hurtigere end de fleste andre
+    alternativer --- og med en simpel modifikation, kan man (næsten) sikre sig,
+    at køretiden er $\Theta(n \log n)$. Derudover er dens pladsforbrug mindre
+    end for merge sort, og implementationen er noget simplere.
+\end{frame}
+
+
+\begin{frame}{Quicksort}{Divide-and-conquer}
+    De tre dele af divide-and-conquer-metoden for quicksort er:
+
+    \begin{description}[Combine]
+        \pause
+        \item[Divide] Vælg et \alert{pivot element} $p$, og del input sekvensen
+            op i en `lav' del og en `høj' del således, alt i den lave del er
+            mindre end $p$ og alt i den høje er større end eller lig med $p$.
+            Indsæt $p$, så den skiller de to.
+        \pause
+        \item[Conquer] Kald quicksort rekursivt på de to halvdele.
+        \pause
+        \item[Combine] Her behøver vi ikke gøre noget, for når vi når til bunds
+            i rekursionen, så er begge sub-arrays sorterede.
+    \end{description}
+\end{frame}
+
+
+\begin{frame}{Quicksort}{Pseudo-kode del 1}
+    \begin{columns}
+        \column{.5\textwidth}
+
+        \begin{itemize}[<+->]
+            \small
+            \item Input: en sekvens $A[1:n]$ og to \alert{indicies} $p, r$ hvor
+                $1 \leq p \leq r \leq n$
+            \item Ved første kald er $p=1$ og $r=n$, altså
+                $\proc{QuickSort}(A,1,n)$
+            \item I linie 2 kalder vi proceduren \proc{Partition}, som deler $A$
+                i to og returnerer indexet på pivot-elementet
+            \item I linie 3 og 4 kalder vi rekursivt for den ene og anden
+                del af sekvensen
+            \item Og så behøver vi ikke gøre mere!
+        \end{itemize}
+
+        \column{.5\textwidth}
+
+        \begin{minipage}{\textwidth}
+            \centering
+            \begin{tcolorbox}
+
+                \vspace{-\abovedisplayskip}
+                \begin{codebox}
+                    \Procname{$\proc{QuickSort}(A,p,r)$}
+                    \li \If $p < r$ \Then
+                    \li     $q \gets \proc{Partition}(p,r)$
+                    \li     \proc{QuickSort}($A,p,q-1)$
+                    \li     \proc{QuickSort}($A,q+1,r$)
+                        \End
+                \end{codebox}
+            \end{tcolorbox}
+        \end{minipage}
+        
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Quicksort}{Pseudo-kode del 2}
+    \begin{columns}
+        \column{.5\textwidth}
+
+        \begin{itemize}[<+->]
+            \small
+            \item Vælg \alert{pivot-elementet} $x$ til at være det sidste i
+                sekvensen, $A[r]$
+            \item $i$ er det sidste index i den lave del, $j$ er det første
+                index i den høje del
+            \item Vi løber igennem alle elementer, bortset fra pivot-elementet
+            \item I linie 4 tjekker vi, om $A[j]$ hører til i den lave del (er
+                mindre end $x$)
+            \item I linie 5 `gør vi plads' i den lave ende ved at inkrementere
+                $i$ (bemærk at på dette tidspunkt er $A[i] > x$)
+            \item I linie 6 bytter vi $A[j]$ (som er mindre end $x$) ud med
+                $A[i]$ (som er højere end $x$)
+            \item Efter loopet flytter vi $x$ til den første plads i den høje
+                del, $A[i + 1]$ --- dermed er alt i $A[p:i] \leq x$ og alt i
+                $A[i+2:r] \geq x$
+        \end{itemize}
+
+        \column{.5\textwidth}
+
+        \begin{minipage}{\textwidth}
+            \centering
+            \begin{tcolorbox}
+
+                \vspace{-\abovedisplayskip}
+                \begin{codebox}
+                    \Procname{$\proc{Partition}(A,p,r)$}
+                    \li $x \gets A[r]$
+                    \li $i \gets p-1$
+                    \li \For $j \gets p$ \To $r-1$
+                        \Do
+                    \li     \If $A[j] \leq x$ \Then
+                    \li         $i \gets i + 1$
+                    \li         exchange $A[i]$ with $A[j]$
+                            \End
+                        \End
+                    \li exhange $A[i+1]$ with $x$
+                    \li \Return $i+1$
+                \end{codebox}
+            \end{tcolorbox}
+        \end{minipage}
+        
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Quicksort}{Pseudo-kode del 2}
+    \begin{columns}
+        \column{.5\textwidth}
+
+        \begin{overlayarea}{\linewidth}{5cm}
+            \begin{itemize}
+                \small
+                \item Vælg \alert{pivot-elementet} $x$ til at være det sidste i
+                    sekvensen, $A[r] = 4$
+                \item Vi har
+                    $i=\only<1>{0}\only<2-4>{1}\only<5>{2}\only<6->{3}$ og %
+                    $j=\only<1>{1}\only<2>{2}\only<3>{3}\only<4>{4}%
+                    \only<5>{5}\only<6>{6}\only<7>{7}\only<8->{8}$
+                \only<1>{%
+                \item Vi sammenligner $A[j]=2$ med \alert{pivot-elementet} og
+                    ser, at det er mindre, så vi inkrementerer $i$ og bytter
+                    $A[i]$ med $A[j]$ (men da $i=j=1$ sker der ingenting lige
+                    nu). Når loopet fortsætter, inkrementeres $j$
+                }
+                \only<2>{%
+                \item Vi sammenligner $A[j]=8$ med $4$ og ser, at det er større,
+                    så vi gør intet andet end at inkrementere $j$
+                }
+                \only<3>{%
+                \item Igen, vi ser $A[j]=7$ er større end $4$ og inkrementerer
+                    blot $j$
+                }
+                \only<4>{%
+                \item Nu ser vi $A[j]=1$ som er mindre end vores pivot-element,
+                    så vi inkrementerer $i$ og bytter plads på $A[i]$ og $A[j]$
+                    inden $j$ inkrementeres
+                }
+                \only<5>{%
+                \item $A[j]=3$ er mindre end 4, så vi øger $i$ med 1 og bytter
+                    7 og 3 (altså $A[3]$ og $A[5]$)
+                }
+                \only<6>{%
+                \item For $j=6$ er $A[j]=5$, hvilket er større end 4, så loopet
+                    kan fortsætte
+                }
+                \only<7>{%
+                \item \ldots og igen, 6 er større end 4, så vi gør ikke noget
+                }
+                \only<8>{%
+                \item Til sidst bytter vi $A[i+1]=8$ med vores pivot-element, og
+                    dermed er alt i $A[p:i]$ mindre end (eller lig med) 4, mens
+                    alt i $A[i+2:r]$ er større end 4
+                }
+                \only<9->{%
+                \item Bum! Nu kan vi returnere indexet på pivot-elementet og
+                    gentage proceduren rekursivt for de to sub-arrays
+                }
+            \end{itemize}
+        \end{overlayarea}
+
+        \vfill
+        \begin{overprint}
+            \onslide<1>\centerline{\includegraphics[width=0.8\textwidth]{quicksort/example-a}}
+            \onslide<2>\centerline{\includegraphics[width=0.8\textwidth]{quicksort/example-b}}
+            \onslide<3>\centerline{\includegraphics[width=0.8\textwidth]{quicksort/example-c}}
+            \onslide<4>\centerline{\includegraphics[width=0.8\textwidth]{quicksort/example-d}}
+            \onslide<5>\centerline{\includegraphics[width=0.8\textwidth]{quicksort/example-e}}
+            \onslide<6>\centerline{\includegraphics[width=0.8\textwidth]{quicksort/example-f}}
+            \onslide<7>\centerline{\includegraphics[width=0.8\textwidth]{quicksort/example-g}}
+            \onslide<8>\centerline{\includegraphics[width=0.8\textwidth]{quicksort/example-h}}
+            \onslide<9>\centerline{\includegraphics[width=0.8\textwidth]{quicksort/example-i}}
+        \end{overprint}
+
+        \column{.5\textwidth}
+
+        \begin{minipage}{\textwidth}
+            \centering
+            \begin{tcolorbox}
+
+                \vspace{-\abovedisplayskip}
+                \begin{codebox}
+                    \Procname{$\proc{Partition}(A,p,r)$}
+                    \li $x \gets A[r]$
+                    \li $i \gets p-1$
+                    \li \For $j \gets p$ \To $r-1$
+                        \Do
+                    \li     \If $A[j] \leq x$ \Then
+                    \li         $i \gets i + 1$
+                    \li         exchange $A[i]$ with $A[j]$
+                            \End
+                        \End
+                    \li exhange $A[i+1]$ with $x$
+                    \li \Return $i+1$
+                \end{codebox}
+            \end{tcolorbox}
+        \end{minipage}
+        
+    \end{columns}
+\end{frame}
+
 
 
 \section{Exercises}

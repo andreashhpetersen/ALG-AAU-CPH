@@ -13,12 +13,13 @@
 \usepackage[T1]{fontenc}
 
 \usepackage{%
+    animate,
     graphicx,
     varwidth,
-    animate,
     tcolorbox,
     clrscode3e,
     tikz,
+    mathtools,
 }
 \usetikzlibrary{shapes.multipart}
 
@@ -471,6 +472,65 @@
 \end{frame}
 
 
+\begin{frame}{Merge sort}{Intuitiv analyse}
+    I næste del af forelæsningen lærer vi om et mere generelt trick til at
+    analysere køretid for rekursive algoritmer, men til en start ser vi på en
+    intuitiv måde at gå til analysen på.
+    \begin{columns}
+
+        \column{.6\textwidth}
+        \small
+
+        \pause
+        \begin{itemize}[<+->]
+            \small
+            \item Vi noterer os, at \proc{Merge} operationen er $\Theta(n)$
+            \item De to rekursitve kald halverer begge input-størrelsen, altså
+                har vi to kald med $n/2$
+            \item I base case, hvor $n\leq1$ og inputtet er trivielt sorteret,
+                er køretiden $\Theta(1)$ (konstant)
+            \item Vi har altså: 
+                \[ T(n) = \begin{cases*}
+                    \Theta(1) & if $n \leq 1$ \\
+                    2T(n/2) + \Theta(n) & otherwise
+                \end{cases*}
+                \]
+            \item Spørgsmålet er så, hvor mange gange kan vi halvere $n$ før,
+                at vi når til base case?
+            \item Dette er faktisk selve definitionen på base-2 logaritmen,
+                $\log_2$!
+        \end{itemize}
+    
+        \column{.4\textwidth}
+        \centerline{\includegraphics<7>[width=.9\textwidth]{recursion-tree}}
+
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Merge sort}{Intuitiv analyse}
+    På hvert `niveau' i træet --- som der er $\log_2 n$ af --- skal vi samlet set
+    foretage $\Theta(n)$ operationer. F.eks., når vi er på niveau 2, har vi
+    halveret $n$ to gange, så vi har $4$ lister af størrelse $n/(2*2) =
+    n/4$, og tydeligvis er $4(n/4) = n$.
+
+    \centerline{%
+        \includegraphics[width=0.8\textwidth]{mergesort-analysis-by-recursion-tree}
+    }
+    
+    \pause
+    Dermed kan vi sige, at køretiden for \proc{Merge-Sort} er $T(n) = \Theta(n
+    \log_2 n)$!
+\end{frame}
+
+\begin{frame}{Vi renser lige hovedet\ldots}{\ldots inden vi går til næste
+    algoritme!}
+    \centering
+    \animategraphics[loop,autoplay,width=.8\textwidth]{10}{deep-breaths-gif/deep-breaths-}{0}{39}
+\end{frame}
+
+
+\section{Quicksort}
+
 \begin{frame}{Quicksort}{Endnu en klassiker}
     Quicksort er en anden meget populær sorteringsalgoritme, der ligeledes
     følger divide-and-conquer-metoden. I worst-case er dens køretid
@@ -695,7 +755,6 @@
 \end{frame}
 
 
-\section{Quick sort}
 \section{The Master Theorem}
 
 \begin{frame}{Dagens temaer}{Opsummering}

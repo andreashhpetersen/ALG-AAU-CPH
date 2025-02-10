@@ -72,9 +72,12 @@
 
 \date {\today}
 
-
 \pgfdeclareimage[height=0.5cm]{university-logo}{../../imgs/aau-logo}
-\logo{\pgfuseimage{university-logo}}
+\logo{%
+    \begin{tikzpicture}[overlay,remember picture]
+        \node[left=0.2cm] at (current page.30){\pgfuseimage{university-logo}};
+    \end{tikzpicture}
+}
 
 \AtBeginSection[]
 {%
@@ -112,7 +115,7 @@
 \begin{frame}{Divide and Conquer}{Algoritmiske teknikker}
     Divide-and-conquer er en effektiv teknik til at designe effektive
     algoritmer til at løse komplekse problemer ved at bryde dem ned i mindre
-    dele. Ofte giver det en asymptotiske køretid i $\Theta(n \log n)$.
+    dele. Ofte giver det en asymptotisk køretid i $\Theta(n \log n)$.
 
     \pause \medskip
     Metoden har overordnet set 3 skridt:
@@ -230,10 +233,6 @@
         \end{minipage}
         
     \end{columns}
-\end{frame}
-
-\begin{frame}{Merge sort}{Eksempel}
-    
 \end{frame}
 
 \begin{frame}{Merge sort}{Merge-operationen}
@@ -754,8 +753,143 @@
     
 \end{frame}
 
-
 \section{The Master Theorem}
+
+\begin{frame}{Analyse af rekursioner}{3 metoder}
+    Vi har set et par eksempler på divide-and-conquer-algoritmer, og hvordan de
+    bruger rekursion til at løse deres opgave. Rekursioner kan godt være tricky
+    at analysere og forstå, hvorfor der findes en række metoder til at gå til
+    dem mere eller mindre formelt:
+
+    \pause
+    \begin{description}[The recursion-tree method]
+        \item[The substitution method] I denne starter vi med et kvalificeret
+            gæt, og så bruger vi matematisk induktion til at vise, at vi har
+            ret. Kan være den nemmeste metode, men kræver lidt erfaring.
+        \pause
+        \item[The recursion-tree method] Vi kan tegne det træ, der fremkommer af
+            rekursionen og bruge det visuelle til at understøtte vores
+            forståelse af, hvad der sker. Altid en god øvelse!
+        \pause
+        \item[The Master Method] For rekursioner, der kan skrives op på formen
+            \[
+                T(n) = aT(n/b) + f(n)
+            \] er dette den letteste og sikreste måde at garantere
+            kompleksiteten af algoritmen. Og det er den metode, vi kigger
+            nærmere ind i nu! 
+    \end{description}
+\end{frame}
+
+\begin{frame}{Master method}{Introduktion}
+    The master method giver os et værktøj, der kan løse rekursioner af formen
+    \[
+        T(n) = aT(n/b) + f(n)
+    \] hvilket ofte er den form, som divide-and-conquer giver.
+
+    \begin{itemize}
+        \item $a$ og $b$ er konstanter, og vi kræver, at $a \geq 1$, $b > 1$
+        \item Vi kalder $f(n)$ \alert{the driving function}, og kræver blot at
+            den er en asymptotisk positiv funktion (dvs.\ ikke-negativ for alle
+            tilpas store værdier af $n$)
+        \item Med det kan vi benytte \alert{master teoremet}!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Master theorem}{Oh boy!}
+    \begin{theorem}[Master theorem]
+        \small
+        Let $a > 0$ and $b > 1$ be constants, and let $f(n)$ be a driving
+        function that is defined and nonnegative on all sufficiently large
+        reals. Define the recurrence $T(n)$ on $n \in \mathbb{N}$ by
+
+        \[
+            T(n) = aT(n/b) + f(n)
+        \] 
+
+        where $aT(n/b)$ actually means $a'T(\lfloor n/b \rfloor) + a''T(\lceil
+        n/b \rceil)$ for some constants $a' \geq 0$ and $a'' \geq 0$ satisfying
+        $a = a' + a''$. Then the asymptotic behavior of $T(n)$ can be
+        characterized as follows:
+
+        \begin{enumerate}
+            \pause
+            \item If there exists a constant $\epsilon > 0$ such that $f(n) =
+                O(n^{\log_b a-\epsilon})$, then $T(n) = \Theta(n^{\log_b a})$
+            \pause
+            \item If there exists a constant $k \geq 0$ such that $f(n) =
+                \Theta(n^{\log_b a} \lg^kn)$ then $T(n) =
+                \Theta(n^{\log_ba}\lg^{k+1}n)$
+            \pause
+            \item If there exists a constant $\epsilon > 0$ such that $f(n) =
+                \Omega(n^{\log_b a+e})$ and if $f(n)$ aditionally satisfies the
+                \alert{regularity condition} $af(n/b) \leq cf(n)$ for some
+                constant $c < 1$ and all sufficiently large $n$, then $T(n) =
+                \Theta(f(n))$
+        \end{enumerate}
+    \end{theorem}
+\end{frame}
+
+\begin{frame}[t]{Master theorem}{Lets break it down}
+    \begin{theorem}[Master theorem (simplified)]
+        \small
+        For a recurrence of the form $T(n) = aT(n/b) + f(n)$, the asymptotic
+        behavior of $T(n)$ can be characterized as follows:
+
+        \begin{enumerate}
+            \uncover<2->{%
+            \item If there exists a constant $\epsilon > 0$ such that $f(n) =
+                O(n^{\log_b a-\epsilon})$, then $T(n) = \Theta(n^{\log_b a})$
+            }
+            \uncover<3->{%
+            \item If there exists a constant $k \geq 0$ such that $f(n) =
+                \Theta(n^{\log_b a} \lg^kn)$ then $T(n) =
+                \Theta(n^{\log_ba}\lg^{k+1}n)$
+            }
+            \uncover<4->{%
+            \item If there exists a constant $\epsilon > 0$ such that $f(n) =
+                \Omega(n^{\log_b a+e})$ and if $f(n)$ aditionally satisfies the
+                \alert{regularity condition} $af(n/b) \leq cf(n)$ for some
+                constant $c < 1$ and all sufficiently large $n$, then $T(n) =
+                \Theta(f(n))$
+            }
+        \end{enumerate}
+    \end{theorem}
+
+    $f(n)$ kaldes en \alert{driving function} og $n^{\log_b a}$ kaldes en
+    \alert{watershed function}. Vi sammenligner disse på følgende måder:
+
+    \begin{description}
+        \item[Case 1]<only@2> $f(n)$ er \alert{asymptotisk mindre} (jf. $O$) end $n^{\log_b
+            a}$ med en faktor af $n^{\epsilon}$ (eftersom $n^{\log_b a -
+            \epsilon} = \frac{n^{\log_b a}}{n^{\epsilon}}$) --- i så fald er
+            rekursionen $T(n) = \Theta(n^{\log_b a})$
+
+        \item[Case 2]<only@3> $f(n)$ er \alert{asymptotisk ækvivalent} (jf. $\Theta)$
+            med $n^{\log_b a} \lg^k n$ for $k \geq 0$ --- i så fald er
+            rekursionen $T(n) = \Theta(n^{\log_b a} \lg^k n)$
+
+            \begin{itemize}
+                \item Generelt kan $k=0$ antages, hvormed udtrykket bliver noget
+                    simplere!
+            \end{itemize}
+
+        \item[Case 3]<only@4> $f(n)$ er \alert{asymptotisk større} (jf.
+            $\Omega$) end $n^{\log_b a}$ med en faktor $n^{\epsilon}$ (igen,
+            $n^{\log_b a + \epsilon} = n^{\log_b a} * n^{\epsilon}$) og lidt
+            ekstra holder --- i så fald er rekursionen $T(n) = \Theta(f(n))$
+
+            \begin{itemize}
+                \small
+                \item \alert{Regularitetsbetingelsen} holder for det meste, og I
+                    behøver ikke hænge jer i den
+            \end{itemize}
+    \end{description}
+\end{frame}
+
+
+
+
+
 
 \begin{frame}{Dagens temaer}{Opsummering}
     \begin{itemize}

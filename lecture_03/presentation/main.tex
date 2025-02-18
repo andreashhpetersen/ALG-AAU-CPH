@@ -866,7 +866,7 @@
 
         \item[Case 2]<only@3> $f(n)$ er \alert{asymptotisk ækvivalent} (jf. $\Theta)$
             med $n^{\log_b a} \lg^k n$ for $k \geq 0$ --- i så fald er
-            rekursionen $T(n) = \Theta(n^{\log_b a} \lg^k n)$
+            rekursionen $T(n) = \Theta(n^{\log_b a} \lg^{k+1} n)$
 
             \begin{itemize}
                 \item Generelt kan $k=0$ antages, hvormed udtrykket bliver noget
@@ -885,6 +885,90 @@
             \end{itemize}
     \end{description}
 \end{frame}
+
+\begin{frame}{Master theorem}{Hvordan bruges det?}
+    Følg denne opskrift:
+
+    \begin{enumerate}
+        \item Identificer om rekursionen har formen $T(n) = aT(n/b) + f(n)$
+        \item Gør udtrykket $n^{\log_b a}$ simplere ved at indsætte $a$ og $b$
+        \item Undersøg hvilket af de 3 cases, der holder, altså
+            \begin{itemize}
+                \item $f(n) = O(n^{\log_b a - \epsilon}) = O(n^{\log_b
+                    a}/n^{\epsilon})$, hvor $\epsilon > 0$
+                \item $f(n) = \Theta(n^{\log_b a}\lg^k n)$, for $k >= 0$
+                \item $f(n) = \Omega(n^{\log_b a + \epsilon}) = \Omega(n^{\log_b
+                    a} * n^{\epsilon})$, hvor $\epsilon > 0$
+            \end{itemize}
+        \item Konklusionen kan stadig se lidt kompliceret ud, så reducer
+            yderligere
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Master theorem}{Eksempel}
+    Vi identificerede tidligere, at vi kunne skrive \proc{Merge-Sort}s køretid
+    op som rekursionen $T(n) = 2T(n/2) + \Theta(n)$. 
+
+    \begin{align*}
+        a&=\uncover<2->{2} \quad b=\uncover<3->{2} \quad
+        f(n)=\uncover<4->{\Theta(n)} \\
+        n^{\log_b a}&=\uncover<5->{n^{\log_2 2} = n^{1} = n} \\
+    \end{align*}
+
+    \uncover<5->{Nu tjekker vi så, om vi kan få det til at passe på nogle af
+    teoremets cases:}
+    \begin{itemize}
+        \item<6-> Er $f(n) = O(n^{1 - \epsilon})$ for nogen $\epsilon > 0$?
+        \item<7-> Er $f(n) = \Theta(n^{1}\lg^k n)$ for nogen $k >= 0$?
+            \begin{itemize}
+                \item<8-> Ja! For $k = 0$ har vi $\Theta(n^{1}\lg^{0}n) =
+                    \Theta(n) = f(n)$.
+                \pause
+                \item<9-> Dette er \alert{case 2} i teoremet, som fortæller os at
+                    $T(n) = \Theta(n^{\log_b a}\lg^{k+1}n$, hvilket for $a=2$,
+                    $b=2$ og $k=0$ giver at $T(n) = \Theta(n \lg n)$
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Master theorem}{Endnu et eksempel}
+    Vi prøver endnu et eksempel
+
+    \begin{itemize}
+        \item<2-> Vi har $T(n) = 3T(n/4) + n \lg n$
+        \item<3-> Dermed har vi $a = \uncover<4->{3}$, $b=\uncover<4->{4}$ og
+            $f(n)=\uncover<5->{n \lg n}$
+        \item<6-> Vi indsætter og forenkler: $n^{\log_b a} = n^{\log_4 3} =
+            n^{0.792}$ (ish)
+    \end{itemize}
+
+    \only<7->{Og så tjekker vi cases:}
+    \begin{enumerate}
+        \item<7-> Er $f(n) = O(n^{0.792 - \epsilon})$ for nogen $\epsilon > 0$?
+            \begin{itemize}
+                \item<8-> Nej, for $n^{0.792} < n$, hvilket stadig må gælde,
+                    hvis vi fratrækker en positiv konstant i eksponenten, og da
+                    $f(n) = n \lg n \geq n$ kan $n^{0.792 - \epsilon}$ altså
+                    ikke være et upper bound.
+            \end{itemize}
+        \item<9-> Er $f(n) = \Theta(n^{0.792}\lg^k n)$ for nogen $k >= 0$?
+            \begin{itemize}
+                \item<10-> Nej, for hvis $k <= 1$ vokser $n^{0.792}\lg^{k}n$ for
+                    langsomt, og hvis $k > 1$ vokser det for hurtigt
+            \end{itemize}
+        \item<11-> Er $f(n) = \Omega(n^{0.792 + \epsilon})$ for nogen $\epsilon > 0$?
+            \begin{itemize}
+                \item<12-> Ja! $n^{x}$ er et lower bound for $n\lg n$, så længe $x$
+                    er mindre end 1. Dvs., at denne case holder for alle
+                    $\epsilon < 0.2$ (ish)
+                \item<12-> \alert{Case 3} giver os at $T(n) = \Theta(f(n)) =
+                    \Theta(n \lg n)$
+            \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+
 
 
 

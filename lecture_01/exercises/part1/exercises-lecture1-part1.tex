@@ -58,7 +58,7 @@
     
     \begin{codebox}
         \Procname{$\proc{Find-Element-v2}(A, a)$}
-        \li $j \gets \attrib{A}{length}$
+        \li $i \gets \attrib{A}{length}$
         \li \While $i > 0$ \Do
             \li \If $A[i] = a$ \Then
                 \li $j \gets i$
@@ -106,7 +106,8 @@
     Write pseudo-code for an algorithm \proc{Check-Equality}, which takes as
     input two sequences $A$ and $B$ of characters and outputs \const{True} if
     $A$ and $B$ are identical and \const{False} otherwise. NB: Note that it is
-    not required that the two sequences are of the same length!
+    not required that the two input sequences are of the same length (your
+    algorithm needs to detect this)!
     
 \end{Exercise}
 

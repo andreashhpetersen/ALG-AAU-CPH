@@ -1,0 +1,112 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=3cm,headsep=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{%
+    booktabs,
+    fancyhdr,
+    pgfgantt,
+    titlesec,
+    clrscode3e,
+    exercise,
+    tikz,
+    subcaption,
+    csquotes
+}
+\usetikzlibrary{trees}
+
+\pagestyle{fancy}
+
+\rhead{Algorithms and Data Structures, S25}
+\lhead{Exercises part 2, Lecture 05}
+\rfoot{Aalborg University, Copenhagen}
+\lfoot{Andreas Holck Høeg-Petersen}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\begin{Exercise}[title={Simple training exercises}]
+
+    \Question
+    Insert the keys `E', `A', `S', `Y', `Q', `U', `E', `S', `T', `I', `O', `N'
+    in an initally empty BST $T$, and show the tree after inserting `Q' and
+    after inserting `N'
+
+    \Question
+    Draw the sequence of BSTs that results when you delete the keys from the
+    tree of the previous exercise in the order that the keys were inserted.
+
+    \Question
+    When $\proc{Tree-Delete}$ calls $\proc{Transplant}$, under what
+    circumstances can the parameter $v$ of $\proc{Transplant}$ be $\const{NIL}$?
+    (CLRS 12.3-4)
+\end{Exercise}
+
+\begin{Exercise}[title={Fun creative exercises!}]
+    \Question
+    Give a recursive version of the $\proc{Tree-Insert}$ procedure. (CLRS
+    12.3-1)
+
+    \Question
+    You can sort a given set of $n$ numbers by first building a binary search
+    tree containing these numbers (using $\proc{Tree-Insert}$ repeatedly to
+    insert the numbers one by one) and then printing the numbers by an inorder
+    tree walk. What are the worst- case and best-case running times for this
+    sorting algorithm? (CLRS 12.3-3)
+
+    \Question
+    Suppose that instead of each node $x$ keeping the attribute $\attrib{x}{p}$,
+    pointing to $x$’s parent, it keeps $\attrib{x}{succ}$, pointing to $x$’s
+    successor. Give pseudocode for $\proc{Tree-Search}$, $\proc{Tree-Insert}$,
+    and $\proc{Tree-Delete}$ on a binary search tree $T$ using this
+    representation. These procedures should operate in $O(h)$ time, where $h$ is
+    the height of the tree $T$. You may assume that all keys in the binary
+    search tree are distinct. (Hint: You might wish to implement a subroutine
+    that returns the parent of a node) (CLRS 12.3-6)
+\end{Exercise}
+
+\begin{Exercise}[title={Question from the 2024 re-exam}]
+    
+    \ExeText
+    \noindent
+    Consider the following algorithm. The input is a \textit{balanced}
+    binary search tree $T$ with $n$ nodes and an array $A$ with $n$ keys,
+    that \textit{may or may not} be in $T$. The algorithm uses the
+    procedures \proc{Tree-Search} and \proc{Tree-Successor}
+    from CLRS (Chapter 12.2). Assume zero-indexing.
+
+    \begin{codebox}
+        \Procname{$\proc{GetSuccessors}(T, A)$}
+        \li $i = 0$
+        \li $B$ = a new array of size $A.\mathit{length}$
+            \li \For $k \in A$ \Do
+            \li $x =$ \proc{Tree-Search}($T.\mathit{root}, k)$
+                \li \If $x \neq \mathrm{Nil}$ \Then
+                    \li $s =$ \proc{Tree-Successor}$(x)$
+                    \li \If $s \neq \mathrm{Nil}$ \Then
+                        \li $B[i]$ = $s$
+                        \li $i = i + 1$
+                    \End
+                \End
+            \End
+        \li \Return $B$
+    \end{codebox}
+
+
+    \Question
+    Give the asymptotic running time of \proc{GetSuccessors} \textit{in terms of
+    n}. Argue for your answer, give as tight a bound as possible and remember to
+    reduce your answer (ie.\ if you analyze the running time of each line, you
+    should still provide an answer like $O(1)$ or $\Theta(2^n)$ for the complete
+    algorithm).
+
+    \Question
+    The output of \proc{GetSuccessors} is an array $B$ of size $n$, but multiple
+    slots in the array may be empty. Can you suggest a better data structure for
+    $B$, that wouldn't have unused space? Argue for your suggestion.
+
+
+\end{Exercise}
+
+\end{document}
+

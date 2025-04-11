@@ -1,0 +1,61 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=3cm,headsep=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{%
+    amsmath,
+    amssymb,
+    booktabs,
+    fancyhdr,
+    pgfgantt,
+    titlesec,
+    clrscode3e,
+    exercise,
+    tikz,
+    subcaption
+}
+\usetikzlibrary{trees}
+
+\pagestyle{fancy}
+
+\rhead{Algorithms and Data Structures, S25}
+\lhead{Exercises part 2, Lecture 07}
+\rfoot{Aalborg University, Copenhagen}
+\lfoot{Andreas Holck Høeg-Petersen}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\begin{Exercise}[title={Simple training exercises}]
+    \Question
+    Consider inserting the keys 10, 22, 31, 4, 15, 28, 17, 88 and 59 into a hash
+    table of length $m=11$ using open addressing. Illustrate the result of
+    inserting these keys using linear probing with $h(k,i) = (k+i) \mod m$ and
+    using double hashing with $h_1(k) = k$ and $h_2(k) = 1 + (k \mod (m-1))$.
+    (CLRS 11.4-1)
+
+\end{Exercise}
+
+\begin{Exercise}[title={Exam question from 2024}]
+    
+    \noindent
+    Consider the hash table $T = [4, Nil, Nil, 3, Nil, 18, Nil, Nil]$ with $m =
+    8$. Assume zero-indexing.
+
+    \Question
+    Insert the keys 7, 5 and 20 using \textit{linear probing} with the auxiliary
+    hash function $h'(k) = 3\lfloor k/2 \rfloor$ and show the result.
+
+    \Question
+    Insert the keys 7, 5, 20 (in the original table) using \textit{double
+    hashing}, with $h_1(k)=k \mod 4$ and $h_2(k)= 2k + 3$ and show the result. 
+
+\end{Exercise}
+
+\begin{Exercise}[title={Fun creative exercises!}]
+    Continue with \texttt{hash\_names.py} if you haven't done it yet.
+\end{Exercise}
+
+
+\end{document}
+

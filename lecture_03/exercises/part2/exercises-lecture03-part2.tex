@@ -1,0 +1,89 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=3cm,headsep=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{%
+    booktabs,
+    fancyhdr,
+    pgfgantt,
+    titlesec,
+    clrscode3e,
+    exercise,
+}
+
+\pagestyle{fancy}
+
+\rhead{Algorithms and Data Structures, S25}
+\lhead{Exercises part 2, Lecture 03}
+\rfoot{Aalborg University, Copenhagen}
+\lfoot{Andreas Holck Høeg-Petersen}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\begin{Exercise}
+
+    \ExeText
+    Give asymptotic upper and lower bounds for $T(n)$ in each of the following
+    algorithmic recurrences. Justify your answer by identifying $a$, $b$ and
+    $f(n)$ and compare the watershed function $n^{\log_b a}$ with the driving
+    function $f(n)$.
+
+    \Question
+    $T(n) = 2T(n/4) + 1$
+
+    \Question
+    $T(n) = 2T(n/4) + \sqrt{n}$
+
+    \Question
+    $T(n) = 2T(n/4) + n$
+
+    \Question
+    $T(n) = 2T(n/2) + n^3$
+
+    \Question
+    $T(n) = T(8n/11) + n$
+
+    \Question
+    $T(n) = 16T(n/4) + n^2$
+
+    \Question
+    $T(n) = 4T(n/2) + n^2 \log n$
+
+    \Question
+    $T(n) = 8T(n/3) + n^2$
+
+    \Question
+    $T(n) = 7T(n/2) + n^2 \log n$
+
+\end{Exercise}
+
+\begin{Exercise}
+    
+    \ExeText
+    \noindent
+    Finish the exercises from the first session. If you are done or want to train
+    your creative problem solving consider the following problem: \\
+
+    \noindent
+    You have $n$ nuts and $n$ bolts. Each nut goes together with one bolt, but
+    you have forgot which ones belong together! And you are in a hurry, so the
+    brute force solution of trying every nut on every bolt until you find a match
+    does not work for you (what's the runtime of this approach?). Luckily, you
+    know about \proc{Quicksort} and you have an idea that this might help you to
+    solve the problem in $\Theta{n \log n}$. \\
+
+    \noindent
+    In this situation, you cannot compare two nuts or two bolts - you can only
+    check if a bolt is to big or small to fit in a nut (or vice versa). You have
+    solved the problem, if you have arranged both nuts and bolts in two
+    sequences so the $i$th nut fits the $i$th bolt for all $i \in 1\ldots n$. \\
+
+    \noindent
+    \textit{Hint:} Maybe you can use the bolts to partition the nuts and the
+    nuts to partition the bolts? Remember, that doing more than one partioning
+    operation per recursive call does not necessarily change the asymptotic
+    runtime.
+\end{Exercise}
+
+\end{document}

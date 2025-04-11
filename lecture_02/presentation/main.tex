@@ -65,12 +65,13 @@
 \end{frame}
 
 \begin{frame}{Opdateringer}{}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Løsninger på exercises kommer på et eller andet tidspunkt
+        \item Husk altid papir og kuglepen!
+        \item Første programmeringsopgave skal afleveres 5.\ marts
         \item Fra evaluering:
             \begin{itemize}
-                \item Grupper?
-                \item Andet?
+                \item Jeg glemte evaluering! Det husker vi lige i dag\ldots
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -116,9 +117,9 @@
 \end{frame}
 
 \begin{frame}{Insertion sort}{Vores første sorteringsalgoritme!}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Vi starter med at kigge på \alert{Insertion sort}
-        \item Simple sorteringsalgoritme, effektiv for små værdier af $n$
+        \item Simpel sorteringsalgoritme, effektiv for små værdier af $n$
             \begin{itemize}
                 \item Hvad mener jeg med $n$?
                 \item Også effektiv for \alert{næsten sorterede} sekvenser!
@@ -269,7 +270,7 @@
 
 \begin{frame}{Insertion sort}{GIF!}
     \centering
-    \animategraphics[loop,autoplay,width=4cm]{10}{insertion-sort-gif/insertion-sort-gif-}{0}{100}
+    \animategraphics[loop,autoplay,width=4cm]{25}{insertion-sort-gif/insertion-sort-gif-}{0}{147}
 \end{frame}
 
 \section{Loop invarianter og korrekthed}
@@ -519,7 +520,8 @@
     Det leder os videre til en ny måde at tale om kompleksitet på, nemlig i
     termer af \alert{order of growth}.
 
-    \begin{itemize}
+    \pause
+    \begin{itemize}[<+->]
         \item Den eksakte køretid er sjældent særligt relevant --- vi vil
             hellere abstrahere
         \item For små inputs er køretiden også irrelevant (computere er
@@ -578,7 +580,7 @@
             \item Intuition: $T(n)$ vokser asymptotisk langsommere end $g(n)$
             \item Eksempler:
                 \begin{itemize}
-                    \tiny
+                    \scriptsize
                     \item $T(n) = 23n^3 + 1000n = O(n^3)$
                     \item $T(n) = 23n^3 + 1000n = O(n^4)$
                     \item $T(n) = 2^n + 41n^27 = O(2^n)$
@@ -650,7 +652,7 @@
             \item Intuition: $T(n)$ vokser asymptotisk hurtigere end $g(n)$
             \item Eksempler:
                 \begin{itemize}
-                    \tiny
+                    \scriptsize
                     \item $T(n) = 23n^3 + 1000n = \Omega(n^3)$
                     \item $T(n) = 23n^3 + 1000n = \Omega(n)$
                     \item $T(n) = 2^n + 41n^{27} = \Omega(2^n)$
@@ -693,7 +695,7 @@
                 O(g(n))$
             \item Eksempler:
                 \begin{itemize}
-                    \tiny
+                    \scriptsize
                     \item $T(n) = 23n^3 + 1000n = \Theta(n^3)$
                     \item $T(n) = 2^n + 41n^{27} = \Theta(2^n)$
                     \item $T(n) = 100 = \Theta(1)$

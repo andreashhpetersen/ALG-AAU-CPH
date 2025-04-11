@@ -1,0 +1,55 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=3cm,headsep=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{%
+    amsmath,
+    booktabs,
+    fancyhdr,
+    pgfgantt,
+    titlesec,
+    clrscode3e,
+    exercise,
+    tikz,
+    subcaption
+}
+\usetikzlibrary{trees}
+
+\pagestyle{fancy}
+
+\rhead{Algorithms and Data Structures, S25}
+\lhead{Exercises part 1, Lecture 07}
+\rfoot{Aalborg University, Copenhagen}
+\lfoot{Andreas Holck Høeg-Petersen}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\begin{Exercise}[title={Simple training exercises}]
+    \Question
+    Consider a hash table of size $m=1000$ and a corresponding hash function
+    $h(k) = \lfloor m(kA - \lfloor kA \rfloor) \rfloor$ for $A = (\sqrt{5} -
+    1)/2$. Compute the locations to which the keys 61, 62, 63, 64 and 65 are
+    mapped. (CLRS 11.3-4)
+
+    \Question
+    Consider a hash table with 9 slots and the hash function $h(k) = k \mod 9$.
+    Demonstrate what happens upon inserting the keys 5, 28, 19, 15, 20, 33, 12,
+    17, 10 with collisions resolved by chaining. (CLRS 11.2-2)
+
+    \Question
+    Professor Marley hypothesizes that he can obtain substantial performance
+    gains by modifying the chaining scheme to keep each list in sorted order.
+    How does the professor's modification affect the running time for successful
+    searches, unsuccessful searches, insertions, and deletions?
+
+\end{Exercise}
+
+\begin{Exercise}[title={Fun creative exercises!}]
+    Dive into the python script \texttt{hash\_names.py} on Moodle and try to
+    solve the exercises there!
+\end{Exercise}
+
+
+\end{document}
+

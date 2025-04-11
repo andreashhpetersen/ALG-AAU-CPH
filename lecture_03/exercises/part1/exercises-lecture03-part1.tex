@@ -1,0 +1,84 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=3cm,headsep=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{%
+    booktabs,
+    fancyhdr,
+    pgfgantt,
+    titlesec,
+    clrscode3e,
+    exercise,
+}
+
+\pagestyle{fancy}
+
+\rhead{Algorithms and Data Structures, S25}
+\lhead{Exercises part 1, Lecture 03}
+\rfoot{Aalborg University, Copenhagen}
+\lfoot{Andreas Holck Høeg-Petersen}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\begin{Exercise}
+
+    \Question
+    Run the \proc{Merge-Sort} algorithm on the following array of characters $A
+    = \langle c, w, x, m, o, z, q, e \rangle$. Give the state of the array after
+    five calls to \proc{Merge} have been performed.
+
+    \Question
+    State a loop invariant for the \textbf{while} loop of lines 12-18 of the
+    \proc{Merge} procedure (from the book). Show how to use it along with the
+    \textbf{while} loops of lines 20-23 and 24-27, to prove that the
+    \proc{Merge} procedure is correct. (CLRS 2.3-3)
+
+    \Question
+    You can also think of insertion sort as a recursive algorithm. In order to
+    sort $A[1:n]$, recursively sort the subarray $A[1:n-1]$ and then insert
+    $A[n]$ into the sorted subarray $A[1:n-1]$. Write pseudo-code for thise
+    recursive version of insertion sort. Give a recursion for its worst-case
+    running time (might be easier after the second part of the lecture). (CLRS
+    2.3-5)
+
+\end{Exercise}
+
+\begin{Exercise}
+    
+    \Question
+    Using Figure 7.1 as a model, illustrate the operation of \proc{Partition} on
+    the array $A = \langle 13, 19, 9, 5, 12, 8, 7, 4, 21, 2, 6, 11 \rangle$.
+    (CLRS 7.1-1)
+
+    \Question
+    Give a brief argument that the running time of \proc{Partition} on a
+    subarray of size $n$ is $\Theta(n)$. (CLRS 7.1-3)
+
+    \Question
+    Show that the running time of \proc{Quicksort} is $\Theta(n^2)$ when the
+    array $A$ contains distinct elements and is sorted in decreasing order.
+    (CLRS 7.2-3)
+
+\end{Exercise}
+
+\begin{Exercise}
+    \ExeText Consider the problem of finding the smallest element in a nonempty
+    array of numbers $A[1:n]$.
+
+    \Question
+    Write an \textit{incremental} algorithm that solves the above problem and
+    determine its asymptotic worst-case running time.
+
+    \Question
+    Write an \textit{divide-and-conquer} algorithm that solves the above problem
+    and determine its asymptotic worst-case running time.
+
+    \Question
+    Assume that the length of $A$ is a power of 2. Write a recurrence describing
+    how many comparison operations (among elements of $A$) your
+    divide-and-conquer algorithm performs (might be easier after the second part
+    of the lecture).
+\end{Exercise}
+
+\end{document}

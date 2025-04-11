@@ -95,11 +95,13 @@
 
 \begin{frame}{Opdateringer}{}
     \begin{itemize}
-        \item Løsninger på exercises kommer på et eller andet tidspunkt
+        \item Første programmeringsopgave er lagt op - har alle set den?
         \item Fra evaluering:
             \begin{itemize}
-                \item Grupper?
-                \item Andet?
+                \item Fordeling af tid til første og andet session af exercises
+                    var lidt skæv
+                \item Klasserumsinteraktion og trin-for-trin gennemgang af
+                    algoritmen var godt!
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -585,7 +587,7 @@
                 \begin{codebox}
                     \Procname{$\proc{QuickSort}(A,p,r)$}
                     \li \If $p < r$ \Then
-                    \li     $q \gets \proc{Partition}(p,r)$
+                    \li     $q \gets \proc{Partition}(A,p,r)$
                     \li     \proc{QuickSort}($A,p,q-1)$
                     \li     \proc{QuickSort}($A,q+1,r$)
                         \End
@@ -740,6 +742,44 @@
     \end{columns}
 \end{frame}
 
+\begin{frame}{Quicksort}{Kompleksitet}
+    \proc{Quicksort} er \alert{meget afhængig} af, hvordan inputtet ser ud:
+
+    \begin{description}[Average case]
+        \pause
+        \item[Worst case] Hvert rekursivt kald laver et enkelt nyt sub-problem
+            af størrelse $n - 1$ $\to$ $\Theta(n^2)$
+        \pause
+        \item[Best case] Hvert rekursivt kald laver 2 nye sub-problemer af
+            størrelse $n/2 \to \Theta(n \log n)$
+        \pause
+        \item[Average case] Hvis det rekursive kald skifter mellem at producere
+            `gode' og `dårlige' split, så vil de `dårlige' split blive
+            absorberet af de `gode', og dybden af rekursionen vil fortsat være
+            bundet af $O(\log n) \to \,$ dermed har det kun en effekt på den
+            skjulte konstant med kompleksiteten fortsætter med at være $\Theta(n
+            \log n)$
+    \end{description}
+
+    \pause
+    Hvordan kan vi sikre os ikke at ramme worst-case? \pause
+    \alert{Randomization!}
+\end{frame}
+
+\begin{frame}{Quicksort}{Randomized quicksort}
+    \centering
+    \begin{minipage}{.6\textwidth}
+        \begin{block}{Randomized-Partition($A,p,r$)}
+
+            \vspace{-\abovedisplayskip}
+            \begin{codebox}
+                \li $i \gets \proc{Random}(p, r)$
+                \li exchange $A[i]$ and $A[r]$
+                \li \Return $\proc{Partition}(A,p,r)$
+            \end{codebox}
+        \end{block}
+    \end{minipage}
+\end{frame}
 
 
 \section{Exercises}
@@ -969,27 +1009,24 @@
 \end{frame}
 
 
-
-
-
-
-
-
 \begin{frame}{Dagens temaer}{Opsummering}
     \begin{itemize}
-        \item Vi har mødt vores første sorteringsalgoritme --- Insertion-Sort!
+        \item Introduktion til \alert{divide-and-conquer} paradigmet
             \begin{itemize}
-                \item Simpel at implementere og forstå
-                \item God til næsten sorterede sekvenser
-                \item Den asymptotiske worst case køretid er kvadratisk
+                \item Del problemet op i mindre sub-problemer
+                \item Løs sub-problemerne når de er trivielle
+                \item Kombiner løsningerne til en samlet løsning
             \end{itemize}
-        \item Loop invarianter og korrekthed
+        \item Merge sort og Quicksort
             \begin{itemize}
-                \item Initialization, maintenance og termination
+                \item Merge sort er garanteret at køre i $\Theta(n \log n)$
+                \item Quicksort kører i worst case i $\Theta(n^2)$ men kan nemt
+                    sikres en forventet køretid i $\Theta(n \log n)$
             \end{itemize}
-        \item Asymptotisk analyse og notation
+        \item Rekursioner og master theorem
             \begin{itemize}
-                \item $O, \Omega, \Theta$
+                \item En generisk metode til at identificere køretider for
+                    rekursioner på formen $T(n) = aT(n/b) + f(n)$
             \end{itemize}
     \end{itemize}
 \end{frame}

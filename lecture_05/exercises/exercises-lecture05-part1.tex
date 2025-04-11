@@ -1,0 +1,116 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=3cm,headsep=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{%
+    booktabs,
+    fancyhdr,
+    pgfgantt,
+    titlesec,
+    clrscode3e,
+    exercise,
+    tikz,
+    subcaption
+}
+\usetikzlibrary{trees}
+
+\pagestyle{fancy}
+
+\rhead{Algorithms and Data Structures, S25}
+\lhead{Exercises part 1, Lecture 05}
+\rfoot{Aalborg University, Copenhagen}
+\lfoot{Andreas Holck Høeg-Petersen}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\begin{Exercise}[title={Simple training exercises}]
+
+    \Question
+    For the keys $\{ 1,4,5,10,16,17,21 \}$, draw binary search trees of heights
+    2, 3, 4, 5 and 6 (CLRS 12.1-1)
+
+    \Question
+    You are searching for the number 363 in binary search tree containing
+    numbers between 1 and 1000. Which of the following sequences \textit{cannot}
+    be the sequence of nodes examined? (CLRS 12.2-1)
+
+    \begin{itemize}
+        \item 2, 252, 401, 398, 330, 344, 397, 363
+        \item 924, 220, 911, 244, 898, 258, 362, 363
+        \item 925, 202, 911, 240, 912, 245, 363
+        \item 2, 399, 387, 219, 266, 382, 381, 278, 363
+        \item 935, 278, 347, 621, 299, 392, 358, 363
+    \end{itemize}
+
+    \Question
+    Give the sequence of nodes examined when the following calls are made on the
+    binary search tree given beneath:
+
+    \begin{minipage}{.35\textwidth}
+    \begin{itemize}
+        \item $\proc{Tree-Search}(T,\textrm{M})$
+        \item $\proc{Tree-Minimum}(\textrm{Q})$
+        \item $\proc{Tree-Successor}(\textrm{M})$
+    \end{itemize}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{.6\textwidth}
+        \centering
+        
+        \begin{tikzpicture}[
+            level 1/.style={sibling distance=10em},
+            level 2/.style={sibling distance=7em},
+            level 3/.style={sibling distance=5em},
+        ]
+        \node {E}
+            child {node {D}
+                child {node {A}}
+                child {node[draw=none]{} }
+            }
+            child {node {Q}
+                child {node {J}
+                    child {node[draw=none]{}}
+                    child {node {M}}
+                }
+                child {node {T}
+                    child {node {S}}
+                    child {node[draw=none]{}}
+                }
+            };
+    \end{tikzpicture}
+
+    \end{minipage}
+
+    \Question
+    Write the $\proc{Tree-Predecessor}$ procedure (CLRS 12.2-3)
+
+\end{Exercise}
+
+\begin{Exercise}[title={Fun creative exercises!}]
+    \Question
+    Professor Kilmer claims to have discovered a remarkable property of binary
+    search trees.  Suppose that the search for key $k$ in a binary search tree
+    ends up at a leaf.  Consider three sets: $A$, the keys to the left of the
+    search path; $B$, the keys on the search path; and $C$, the keys to the
+    right of the search path. Professor Kilmer claims that any three keys $a \in
+    A$, $b \in B$, and $c \in  C$ must satisfy $a \leq b \leq c$. Give a
+    smallest possible counterexample to the professor's claim. (CLRS 12.2-4)
+
+    \Question
+    Show that if a node in a binary search tree has two children, then its
+    successor has no left child and its predecessor has no right child. (CLRS
+    12.2-5)
+
+    \Question
+    An alternative method of performing an inorder tree walk of an $n$-node
+    binary search tree finds the minimum element in the tree by calling
+    $\proc{Tree-Minumum}$ and then making $n - 1$ calls to
+    $\proc{Tree-Successor}$. Prove that this algorithm runs in $\Theta(n)$ time.
+    (CLRS 12.2-7)
+
+\end{Exercise}
+
+
+\end{document}
+

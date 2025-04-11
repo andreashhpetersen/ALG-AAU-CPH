@@ -1,0 +1,57 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=3cm,headsep=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{%
+    booktabs,
+    fancyhdr,
+    pgfgantt,
+    titlesec,
+    clrscode3e,
+    exercise,
+    tikz,
+    subcaption
+}
+\usetikzlibrary{trees}
+
+\pagestyle{fancy}
+
+\rhead{Algorithms and Data Structures, S25}
+\lhead{Exercises part 2, Lecture 06}
+\rfoot{Aalborg University, Copenhagen}
+\lfoot{Andreas Holck Høeg-Petersen}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\begin{Exercise}[title={Simple training exercises}]
+
+    \Question
+    In the last exercise session, you found the red-black tree that results from
+    sucessively inserting the keys 41, 38, 31, 12, 19, 8 into an intially empty
+    tree. Now show the red-black trees that result from successive deletion of
+    the keys in the order 8, 12, 19, 31, 38, 41. (CLRS 13.4-3)
+    
+    \Question
+    Show that if node $y$ in $\proc{RB-Delete}$ is red, then no black-heights
+    change.
+    
+    \Question
+    A node $x$ is inserted into a red-black tree with $\proc{RB-Insert}$ and
+    then is immediately deleted with $RB-Delete$. Is the resulting red-black
+    tree always the same as the initial red-black tree? Justify your answer (for
+    example with a minimal example). (CLRS 13.4-8)
+    
+\end{Exercise}
+
+\begin{Exercise}[title={Programming Task 2}]
+    \noindent
+    You can spent this time working on the second programming task and ask for
+    help, if you want to!
+
+\end{Exercise}
+
+
+\end{document}
+
+

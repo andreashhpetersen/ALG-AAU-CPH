@@ -14,7 +14,7 @@
 \pagestyle{fancy}
 
 \rhead{Algorithms and Data Structures, S25}
-\lhead{Exercises part 2, Lecture 02}
+\lhead{Exercises part 1, Lecture 02}
 \rfoot{Aalborg University, Copenhagen}
 \lfoot{Andreas Holck Høeg-Petersen}
 
@@ -47,8 +47,9 @@
         \Procname{$\proc{sum}(A, n)$}
         \li $i \gets 0$
         \li $\id{sum} \gets 0$
-        \li \While $i \leq n$ \Then
+        \li \While $i < n$ \Then
             \li $\id{sum} = \id{sum} + A[i]$
+            \li $i \gets i + 1$
         \End
         \li \Return \id{sum}
     \end{codebox}
